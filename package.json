@@ -1,0 +1,17 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "A simple blog powered by Express and MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blog",
+    "mysql",
+    "express",
+    "tutorial"
+  ],
+  "author": "Muhammad Fawwaz Orabi",
+  "license": "MIT"
+}
