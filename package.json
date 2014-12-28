@@ -13,5 +13,9 @@
     "tutorial"
   ],
   "author": "Muhammad Fawwaz Orabi",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.6",
+    "mysql": "^2.5.4"
+  }
 }
