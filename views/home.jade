@@ -1,7 +1,17 @@
 doctype html
-html(lang="ar")
+html(lang="ar", dir="rtl")
     head
         title "مُدوّنتي!"
     body
+        style
+            :css
+                body {
+                    font-family: Arial, sans-serif;
+                }
+        
+        h1 مُدوّنتي
+        hr
         for post in posts
-            li #{post.title}
+            h2 #{ post.title }
+            p #{ post.body }
+            small بتاريخ #{ post.date }
