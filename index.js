@@ -1,6 +1,13 @@
 var express = require("express");
 var mysql = require("mysql");
 
+var moment = require("moment");
+moment.locale("ar");
+
+var formatDate = function(date) {
+    return moment(new Date(date)).fromNow();
+}
+
 var connection = mysql.createConnection({ host: "localhost", user: "root", password: "", database: "myblog" });
 connection.connect();
 
