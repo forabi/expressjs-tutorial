@@ -22,15 +22,22 @@ app.get("/", function(request, response) {
     
 });
 
-app.get("/posts/:slug", function(request, response) {
+app.get("/posts/:slug", function(request, response, next) {
 
     var slug = request.params.slug;
     
     connection.query("SELECT * from `posts` WHERE slug = ?", [ slug ], function(err, rows) {
+        if (err || rows.length == 0) return next();
         var post = rows[0];
         response.render("post", { post: post, formatDate: formatDate });
+        return;
     });
 
+})
+
+app.get("/posts/:slug", function(request, response) {
+    response.status(404);
+    response.send("التدوينة غير موجودة");
 })
 
 app.listen(3000);
