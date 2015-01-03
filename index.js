@@ -70,11 +70,12 @@ app.post("/accounts", parseBody, function(request, response) {
         
         connection.query("INSERT INTO `users` (username, password, full_name) VALUES (?, ?, ?)", [username, hash, full_name], function(err) {
             if (err) {
-                response.status(400);
+                response.status(500);
                 response.send("وقع خطأ أثناء إنشاء الحساب، أعد المحاولة");
                 return;
             }
             
+            response.status(201);
             response.send("أُنشئ الحساب، يمكنك الآن تسجيل الدخول");
         });
     });
