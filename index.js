@@ -45,7 +45,7 @@ app.get("/posts/:slug", function(request, response) {
 })
 
 app.get("/signup", function(request, response) {
-    response.render("new-account");
+    response.render("signup");
 })
 
 var parseBody = bodyParser.urlencoded({ extended: true });
