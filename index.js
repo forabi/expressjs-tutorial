@@ -81,4 +81,51 @@ app.post("/accounts", parseBody, function(request, response) {
     });
 })
 
+app.get("/login", function(request, response) {
+    response.render("login");
+})
+
+
+app.post("/sessions", parseBody, function(request, response) {
+    var username = request.body.username;
+    var password = request.body.password;
+    
+    if (!username || !password) {
+        response.status(400);
+        response.send("يجب توفير اسم المستخدم وكلمة المرور");
+        return;
+    }
+    
+    connection.query("SELECT username, password FROM `users` WHERE username=?", [ username ], function(err, rows) {
+        var user = rows[0];
+        if (!user) {
+            response.status(400);
+            response.send("لا يوجد مستخدم يطابق اسمه اسم المستخدم المطلوب");
+            return;
+        }
+        
+        bcrypt.compare(password, user.password, function(err, result) {
+            if (err) {
+                response.status(500);
+                response.send("وقع خطأ من جهة الخادم، حاول تسجيل الدخول لاحقًا");
+                return;
+            }
+            
+            if (result == true) {
+                // كلمتا المرور متطابقتان
+                console.log("WELCOME", user);
+                
+                response.status(200);
+                // احفظ الجلسة على المتصفّح
+
+            } else {
+                response.status(401);
+                response.send("كلمة المرور التي أرسلتها خاطئة");
+            }
+            
+        })
+    });
+    
+})
+
 app.listen(3000);

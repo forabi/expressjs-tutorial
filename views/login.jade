@@ -1,0 +1,22 @@
+doctype html
+html(lang="ar", dir="rtl")
+    head
+        title تسجيل الدخول
+    body
+        style
+            :css
+                body {
+                    font-family: Arial, sans-serif;
+                }
+        
+        h1 مُدوّنتي
+        hr
+        h2 تسجيل الدخول
+        form(action="/sessions", method="POST")
+            label(for="username") اسم المستخدم: 
+            input(type="text", name="username", required)
+            br
+            label(for="name") كلمة المرور: 
+            input(type="password", name="password" required)
+            br
+            input(type="submit", value="سجّل الدخول")
