@@ -133,7 +133,7 @@ app.post("/sessions", parseBody, function(request, response) {
             return;
         }
         
-        bcrypt.compare(password, user.password, function(err, result, next) {
+        bcrypt.compare(password, user.password, function(err, result) {
             if (err) {
                 response.status(500);
                 response.send("وقع خطأ من جهة الخادم، حاول تسجيل الدخول لاحقًا");
