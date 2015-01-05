@@ -14,3 +14,25 @@ html(lang="ar", dir="rtl")
         h2 #{ post.title }
         p #{ post.body }
         small كُتِبَت #{ formatDate(post.date) }
+        #comments
+            h3 التعليقات
+            if post.comments
+                for comment in post.comments
+                    p يقول 
+                        b #{ comment.full_name }: 
+                        br
+                        | #{ comment.body }
+                    small #{ formatDate(comment.created) }
+                    hr
+            else
+                p لا تعليقات إلى الآن
+
+        if user
+            form(action="/posts/" + post.id + "/comments", method="POST")
+                textarea(name="comment", placeholder="أكتب تعليقك")
+                input(type="submit", value="أرسل التّعليق")
+        else
+            span لإضافة تعليقاتك، 
+            a(href="/login") سجّل دخولك
+            |  أو 
+            a(href="/signup") أنشئ حسابًا جديدًا
