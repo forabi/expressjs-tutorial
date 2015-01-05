@@ -1,6 +1,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
 var mysql = require("mysql");
 
 var bcrypt = require("bcrypt");
@@ -16,6 +19,29 @@ var connection = mysql.createConnection({ host: "localhost", user: "root", passw
 connection.connect();
 
 var app = express();
+
+app.use(session({
+    secret: "my top secret",
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(cookieParser());
+
+app.use(function(request, response, next) {
+    var session_id = request.cookies["connect.sid"];
+    if (session_id) {
+        connection.query("SELECT users.username, full_name, is_author FROM `users` JOIN `sessions` ON users.username=sessions.username WHERE session_id=\"?\"", [ session_id ], function(err, rows) {
+            if (!err && rows[0]) {
+                request.user = rows[0];
+            }
+            
+            next();
+        })
+    } else {
+        next();
+    }
+})
 
 app.set("view engine", "jade");
 
@@ -96,7 +122,7 @@ app.post("/sessions", parseBody, function(request, response) {
         return;
     }
     
-    connection.query("SELECT username, password FROM `users` WHERE username=?", [ username ], function(err, rows) {
+    connection.query("SELECT username, password FROM `users` WHERE username=?", [ username ], function(err, rows, next) {
         var user = rows[0];
         if (!user) {
             response.status(400);
@@ -104,7 +130,7 @@ app.post("/sessions", parseBody, function(request, response) {
             return;
         }
         
-        bcrypt.compare(password, user.password, function(err, result) {
+        bcrypt.compare(password, user.password, function(err, result, next) {
             if (err) {
                 response.status(500);
                 response.send("وقع خطأ من جهة الخادم، حاول تسجيل الدخول لاحقًا");
@@ -112,12 +138,12 @@ app.post("/sessions", parseBody, function(request, response) {
             }
             
             if (result == true) {
-                // كلمتا المرور متطابقتان
-                console.log("WELCOME", user);
+                connection.query("INSERT INTO `sessions` (session_id, username) VALUES (\"?\", ?)", [ request.cookies["connect.sid"], username ], function(err) {
+                    if (err) return next(err); // تعامل مع الخطأ
+                    response.status(200);
+                    response.send("تم تسجيل الدّخول");
+                })
                 
-                response.status(200);
-                // احفظ الجلسة على المتصفّح
-
             } else {
                 response.status(401);
                 response.send("كلمة المرور التي أرسلتها خاطئة");
@@ -126,6 +152,10 @@ app.post("/sessions", parseBody, function(request, response) {
         })
     });
     
+})
+
+app.get("/profile", function(request, response) {
+    response.render("profile", { user: request.user })
 })
 
 app.listen(3000);

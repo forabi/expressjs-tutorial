@@ -1,0 +1,16 @@
+doctype html
+html(lang="ar", dir="rtl")
+    head
+        title الملف الشخصي
+    body
+        style
+            :css
+                body {
+                    font-family: Arial, sans-serif;
+                }
+        
+        if (user)
+            h1 #{ user.full_name } (#{ user.username })
+            hr
+        else
+            p لم تقم بتسجيل دخولك
