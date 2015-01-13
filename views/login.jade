@@ -2,15 +2,9 @@ doctype html
 html(lang="ar", dir="rtl")
     head
         title تسجيل الدخول
+        link(rel="stylesheet", href="style.css")
     body
-        style
-            :css
-                body {
-                    font-family: Arial, sans-serif;
-                }
-        
-        h1 مُدوّنتي
-        hr
+        include _header
         h2 تسجيل الدخول
         form(action="/sessions", method="POST")
             label(for="username") اسم المستخدم: 

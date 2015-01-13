@@ -1,17 +1,6 @@
-doctype html
-html(lang="ar", dir="rtl")
-    head
-        title مُدوّنتي!
-    body
-        style
-            :css
-                body {
-                    font-family: Arial, sans-serif;
-                }
-        
-        h1 مُدوّنتي
-        hr
-        for post in posts
-            h2 #{ post.title }
-            p #{ post.body }
-            small كُتِبَت #{ formatDate(post.date) }
+extends _layout
+include _mixins
+block content
+    for post in posts
+        .post
+            +post(post, false)

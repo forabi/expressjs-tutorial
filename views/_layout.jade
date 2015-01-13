@@ -1,0 +1,16 @@
+doctype html
+html(lang="ar", dir="rtl")
+    head
+        title مُدوّنتي!
+        link(rel="stylesheet", href="/style.css")
+    body
+        header#blog-header
+            h1#blog-title مُدوّنتي
+            ul#blog-nav
+                li: a.btn(href="/") الرئيسية
+                li: a.btn(href="/login") تسجيل الدخول
+                li: a.btn.btn-primary(href="/signup") إنشاء حساب
+        block content
+        footer#blog-footer
+            hr
+            p جميع الحقوق غير محفوظة

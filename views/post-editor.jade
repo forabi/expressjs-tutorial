@@ -1,0 +1,21 @@
+doctype html
+html(lang="ar", dir="rtl")
+    head
+        title تدوينة جديدة
+        link(rel="stylesheet", href="style.css")
+    body
+        include _header
+        - var editMode = post && post.id
+        h2 #{editMode ? "تعديل التّدوينة" : "تدوينة جديدة" }
+        form(action= editMode ? ("/posts/" + post.slug + "?_method=PUT") : "/posts", method="POST")
+            label(for="title") عنوان التدوينة: 
+            input(type="text", name="title", required, value= editMode ? post.title : "")
+            br
+            if !editMode
+                label(for="slug") الرابط الفرعي: 
+                input(type="text", name="slug" required)
+                br
+            label(for="body") نص التّدوينة: 
+            textarea(name="body") #{ editMode ? post.body : "" }
+            br
+            input(type="submit", value="أرسل التّدوينة")

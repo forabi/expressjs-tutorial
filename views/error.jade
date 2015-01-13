@@ -1,0 +1,9 @@
+doctype html
+html(lang="ar", dir="rtl")
+    head
+        title مُدوّنتي! - خطأ
+        link(rel="stylesheet", href="style.css")
+    body
+        include _header
+        h2 خطأ #{ statusCode }
+        p #{ error.message || error.toString() }
