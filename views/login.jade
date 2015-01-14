@@ -1,16 +1,11 @@
-doctype html
-html(lang="ar", dir="rtl")
-    head
-        title تسجيل الدخول
-        link(rel="stylesheet", href="style.css")
-    body
-        include _header
-        h2 تسجيل الدخول
-        form(action="/sessions", method="POST")
-            label(for="username") اسم المستخدم: 
-            input(type="text", name="username", required)
-            br
-            label(for="name") كلمة المرور: 
-            input(type="password", name="password" required)
-            br
-            input(type="submit", value="سجّل الدخول")
+extends _layout
+block content
+    h2 تسجيل الدخول
+    form(action="/sessions", method="POST")
+        label(for="username") اسم المستخدم: 
+        input(type="text", name="username", required)
+        br
+        label(for="name") كلمة المرور: 
+        input(type="password", name="password" required)
+        br
+        input(type="submit", value="سجّل الدخول")

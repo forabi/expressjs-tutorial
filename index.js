@@ -247,8 +247,7 @@ app.get("/posts/:slug/edit", function(request, response, next) {
         })
     } else {
         response.status(401);
-        response.error = { message: "إمّا أن التّدوينة غير موجودة، أو أنّك لا تملك الصلاحيات للوصول إليها" };
-        return next();
+        return next(new Error("إمّا أن التّدوينة غير موجودة، أو أنّك لا تملك الصلاحيات للوصول إليها"));
     }
     
 })

@@ -1,20 +1,13 @@
-doctype html
-html(lang="ar", dir="rtl")
-    head
-        title إنشاء مستخدم جديد
-        link(rel="stylesheet", href="style.css")
-    body
-        h1 مُدوّنتي
-        hr
-        h2 إنشاء مستخدم جديد
-        form(action="/accounts", method="POST")
-            label(for="name") اسمك: 
-            input(type="text", name="name", placeholder="الاسم كاملًا", required)
-            br
-            label(for="name") كلمة المرور: 
-            input(type="password", name="password", placeholder="اختر كلمة مرور قويّة", required)
-            br
-            label(for="username") اسم المستخدم: 
-            input(type="text", name="username", placeholder="حروف لاتينية، 50 حرفًا على الأكثر", required)
-            br
-            input(type="submit", value="أنشئ الحساب")
+extends _layout
+block content
+    form(action="/accounts", method="POST")
+        label(for="name") اسمك: 
+        input(type="text", name="name", placeholder="الاسم كاملًا", required)
+        br
+        label(for="name") كلمة المرور: 
+        input(type="password", name="password", placeholder="اختر كلمة مرور قويّة", required)
+        br
+        label(for="username") اسم المستخدم: 
+        input(type="text", name="username", placeholder="حروف لاتينية، 50 حرفًا على الأكثر", required)
+        br
+        input(type="submit", value="أنشئ الحساب")

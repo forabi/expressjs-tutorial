@@ -1,12 +1,7 @@
-doctype html
-html(lang="ar", dir="rtl")
-    head
-        title الملف الشخصي
-        link(rel="stylesheet", href="style.css")
-    body
-        _include header
-        if (user)
-            h1 #{ user.full_name } (#{ user.username })
-            hr
-        else
-            p لم تقم بتسجيل دخولك
+extends _layout
+block content
+    if (user)
+        h1 #{ user.full_name } (#{ user.username })
+        hr
+    else
+        p لم تقم بتسجيل دخولك
